@@ -12,6 +12,7 @@ public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
 		super(entityClass);
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	@Override
 	protected EntityManager getEntityManager() {
