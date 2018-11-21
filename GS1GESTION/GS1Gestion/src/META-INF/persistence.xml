@@ -9,6 +9,10 @@
 		<jta-data-source>java:/comp/env/jdbc/gs1gestion</jta-data-source>
 		<class>model.Departamento</class>
 		<class>model.OperadorTelefonica</class>
+		<class>model.TipoEmpresa</class>
+		<class>model.TipoCorreo</class>
+		<class>model.TipoTelefono</class>
+		<class>model.Estandare</class>
 		<!-- <properties>
 			<property name="eclipselink.weaving.lazy" value="true" />
 			<property name="eclipselink.cache.type.default" value="NONE" />

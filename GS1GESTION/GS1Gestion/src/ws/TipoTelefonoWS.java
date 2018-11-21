@@ -5,19 +5,22 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import Utilidades.Constantes;
+
 import model.Departamento;
 import model.ObjectReturn;
+import model.TipoTelefono;
 import services.DepartamentoServices;
 import services.GlobalServices;
+import services.TipoTelefonoServices;
 
-@Path("Departamento")
-public class DepartamentoWS {
+@Path("TipoTelefono")
+public class TipoTelefonoWS {
 
 	GlobalServices objGlobalServices = new GlobalServices();
 
@@ -25,17 +28,17 @@ public class DepartamentoWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearDepartamento(@FormParam("departamento")String departamento) {
+	public String CrearTipoTelefono(@FormParam("tipoTelfono")String tipotelefono) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Departamento objDepartamento = new Departamento();
-			objDepartamento.setDepartamento(departamento);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
-			objReturn.setData(objDepartamento);
-			objDepartamentoService.creardepartamento(objReturn);
+			TipoTelefono objTipoTelefono = new TipoTelefono();
+			objTipoTelefono.setDesTipoTelefono(tipotelefono);
+			TipoTelefonoServices objTipoTelefonoService = new TipoTelefonoServices();
+			objReturn.setData(objTipoTelefono);
+			objTipoTelefonoService.creartipotelefono(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -59,20 +62,20 @@ public class DepartamentoWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarDepartamento(@FormParam("idDepartamentos")Integer idDepartamento,@FormParam("departamento")String departamento) {
+	public String ActualizarTipoTelefono(@FormParam("idTipoTelefono")Integer idTipoTelefono,@FormParam("tipoTelefono")String tipoTelefono) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Departamento objDepartamento = new Departamento();
-			objDepartamento.setIdDepartamentos(idDepartamento);
-			objDepartamento.setDepartamento(departamento);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
+			TipoTelefono objTipoTelefono = new TipoTelefono();
+			objTipoTelefono.setIdTipoTelefono(idTipoTelefono);
+			objTipoTelefono.setDesTipoTelefono(tipoTelefono);
+			TipoTelefonoServices objTipoTelefonoService = new TipoTelefonoServices();
 
-			objReturn.setData(objDepartamento);
+			objReturn.setData(objTipoTelefono);
 			// objGlobalServices.ValidarJSON(objReturn);
-			objDepartamentoService.actualizardepartamento(objReturn);
+			objTipoTelefonoService.actualizarTipoTelefono(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -93,15 +96,15 @@ public class DepartamentoWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getDepartamentos(@QueryParam("jtSorting") String jtSorting) {
+	public String getTipoTelefono(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
-			objDepartamentoService.getall(objReturn);
+			TipoTelefonoServices objTipoTelefonoService = new TipoTelefonoServices();
+			objTipoTelefonoService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}

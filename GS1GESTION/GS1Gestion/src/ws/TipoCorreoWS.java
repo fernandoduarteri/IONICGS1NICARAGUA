@@ -1,41 +1,40 @@
 package ws;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import Utilidades.Constantes;
-import model.Departamento;
 import model.ObjectReturn;
-import services.DepartamentoServices;
-import services.GlobalServices;
+import model.TipoCorreo;
+import services.TipoCorreoServices;
 
-@Path("Departamento")
-public class DepartamentoWS {
+@Path("TipoCorreo")
+public class TipoCorreoWS {
 
-	GlobalServices objGlobalServices = new GlobalServices();
 
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearDepartamento(@FormParam("departamento")String departamento) {
+	public String CrearDepartamento(@FormParam("desTipoCorreo")String desTipoCorreo) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Departamento objDepartamento = new Departamento();
-			objDepartamento.setDepartamento(departamento);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
-			objReturn.setData(objDepartamento);
-			objDepartamentoService.creardepartamento(objReturn);
+			TipoCorreo objTipoCorreo = new TipoCorreo();
+			objTipoCorreo.setDesTipoCorreo(desTipoCorreo);
+			TipoCorreoServices objTipoCorreoService = new TipoCorreoServices();
+			objReturn.setData(objTipoCorreo);
+			objTipoCorreoService.crearTipoCorreo(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -59,20 +58,20 @@ public class DepartamentoWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarDepartamento(@FormParam("idDepartamentos")Integer idDepartamento,@FormParam("departamento")String departamento) {
+	public String ActualizarDepartamento(@FormParam("idTipoCorreo")Integer idTipoCorreo,@FormParam("desTipoCorreo")String desTipoCorreo) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Departamento objDepartamento = new Departamento();
-			objDepartamento.setIdDepartamentos(idDepartamento);
-			objDepartamento.setDepartamento(departamento);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
+			TipoCorreo objTipoCorreo = new TipoCorreo();
+			objTipoCorreo.setIdTipoCorreo(idTipoCorreo);
+			objTipoCorreo.setDesTipoCorreo(desTipoCorreo);
+			TipoCorreoServices objTipoCorreoService = new TipoCorreoServices();
 
-			objReturn.setData(objDepartamento);
+			objReturn.setData(objTipoCorreo);
 			// objGlobalServices.ValidarJSON(objReturn);
-			objDepartamentoService.actualizardepartamento(objReturn);
+			objTipoCorreoService.actualizarTipoCorreo(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -100,8 +99,8 @@ public class DepartamentoWS {
 		JsonObject objJsonAux = new	JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			DepartamentoServices objDepartamentoService = new DepartamentoServices();
-			objDepartamentoService.getall(objReturn);
+			TipoCorreoServices objTipoCorreoService = new TipoCorreoServices();
+			objTipoCorreoService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -120,4 +119,5 @@ public class DepartamentoWS {
 		}
 
 	}
+	
 }

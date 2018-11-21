@@ -1,32 +1,24 @@
 package dao;
 
-import persist.JPAEntity;
-
 import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
 import model.Departamento;
 import model.ObjectReturn;
-import model.OperadorTelefonica;
+import model.TipoCorreo;
+import persist.JPAEntity;
 
-public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
+public class TipoCorreoDAO extends JPAEntity<TipoCorreo> {
 
-	public OperadorTelefonicaDAO(Class<OperadorTelefonica> entityClass) {
+	public TipoCorreoDAO(Class<TipoCorreo> entityClass) {
 		super(entityClass);
-		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void crearOperador(ObjectReturn objReturn) throws Exception {
-		OperadorTelefonica objOperadorTelefonica = new OperadorTelefonica();
+	public void crearTipoCorreo(ObjectReturn objReturn) {
+		TipoCorreo objTipoCorreo = new TipoCorreo();
 		try {
-			objOperadorTelefonica = (OperadorTelefonica) objReturn.getData();
-			super.create(objOperadorTelefonica);
+			objTipoCorreo = (TipoCorreo) objReturn.getData();
+			super.create(objTipoCorreo);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -39,11 +31,11 @@ public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
 		
 	}
 
-	public void actualizarOperador(ObjectReturn objReturn) throws Exception{
-		OperadorTelefonica objOperadorTelefonica = new OperadorTelefonica();
+	public void actualizarTipoCorreo(ObjectReturn objReturn) {
+		TipoCorreo objTipoCorreo = new TipoCorreo();
 		try {
-			objOperadorTelefonica = (OperadorTelefonica) objReturn.getData();
-			super.edit(objOperadorTelefonica);
+			objTipoCorreo = (TipoCorreo) objReturn.getData();
+			super.edit(objTipoCorreo);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -56,15 +48,15 @@ public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
 		
 	}
 
-	public void getall(ObjectReturn objReturn) throws Exception{
+	public void getall(ObjectReturn objReturn) {
 		String sorting = (String) objReturn.getData();
 		String query="";
 		try {
 			if (sorting ==null) {
-				query="SELECT o FROM OperadorTelefonica o ORDER BY o.idOperadorTelefonica ASC";
+				query="SELECT t FROM TipoCorreo t ORDER BY t.idTipoCorreo ASC";
 				objReturn.setData(super.findAllSorting(query));
 			}else {
-				query="SELECT o FROM OperadorTelefonica o ORDER BY o." + sorting;
+				query="SELECT t FROM TipoCorreo t ORDER BY t." + sorting;
 				objReturn.setData(super.findAllSorting(query));
 			}
 			objReturn.setMensaje("Exito");
@@ -77,6 +69,12 @@ public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
 			objReturn.setTotal(0);
 		}
 		
+	}
+
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
