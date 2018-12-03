@@ -4,20 +4,20 @@ import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
 import model.ObjectReturn;
-import model.TipoEmpresa;
+import model.TipoAsignacion;
 import persist.JPAEntity;
 
-public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
+public class TipoAsignacionDAO extends JPAEntity<TipoAsignacion> {
 
-	public TipoEmpresaDAO(Class<TipoEmpresa> entityClass) {
+	public TipoAsignacionDAO(Class<TipoAsignacion> entityClass) {
 		super(entityClass);
 	}
 
-	public void crearTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	public void crearTipoAsignacion(ObjectReturn objReturn) throws Exception {
+		TipoAsignacion objTipoAsignacion = new TipoAsignacion();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.create(objTipoEmpresa);
+			objTipoAsignacion = (TipoAsignacion) objReturn.getData();
+			super.create(objTipoAsignacion);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -27,14 +27,14 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
-	public void actualizarTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	public void actualizarTipoAsignacion(ObjectReturn objReturn) throws Exception {
+		TipoAsignacion objTipoAsignacion = new TipoAsignacion();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.edit(objTipoEmpresa);
+			objTipoAsignacion = (TipoAsignacion) objReturn.getData();
+			super.edit(objTipoAsignacion);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -44,18 +44,18 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
-	public void getall(ObjectReturn objReturn) throws Exception{
+	public void getall(ObjectReturn objReturn) throws Exception {
 		String sorting = (String) objReturn.getData();
-		String query="";
+		String query = "";
 		try {
-			if (sorting ==null) {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t.idTipoEmpresa ASC";
+			if (sorting == null) {
+				query = "SELECT t FROM TipoAsignacion t ORDER BY t.idTipoAsignacion ASC";
 				objReturn.setData(super.findAllSorting(query));
-			}else {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t." + sorting;
+			} else {
+				query = "SELECT t FROM TipoAsignacion t ORDER BY t." + sorting;
 				objReturn.setData(super.findAllSorting(query));
 			}
 			objReturn.setMensaje("Exito");
@@ -67,7 +67,7 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
 	@Override

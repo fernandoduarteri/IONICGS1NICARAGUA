@@ -24,7 +24,7 @@ public class TipoCorreoWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearDepartamento(@FormParam("desTipoCorreo")String desTipoCorreo) {
+	public String CrearTipoCorreo(@FormParam("desTipoCorreo")String desTipoCorreo) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
@@ -58,7 +58,7 @@ public class TipoCorreoWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarDepartamento(@FormParam("idTipoCorreo")Integer idTipoCorreo,@FormParam("desTipoCorreo")String desTipoCorreo) {
+	public String ActualizarTipoCorreo(@FormParam("idTipoCorreo")Integer idTipoCorreo,@FormParam("desTipoCorreo")String desTipoCorreo) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
@@ -75,7 +75,6 @@ public class TipoCorreoWS {
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			resultado = objJSON.toJson(objJsonAux);
 			return resultado;
@@ -92,7 +91,7 @@ public class TipoCorreoWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getDepartamentos(@QueryParam("jtSorting") String jtSorting) {
+	public String getTipoCorreo(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();

@@ -10,7 +10,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import Utilidades.Constantes;
 import model.Departamento;
 import model.ObjectReturn;
 import services.DepartamentoServices;
@@ -76,7 +75,6 @@ public class DepartamentoWS {
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			resultado = objJSON.toJson(objJsonAux);
 			return resultado;

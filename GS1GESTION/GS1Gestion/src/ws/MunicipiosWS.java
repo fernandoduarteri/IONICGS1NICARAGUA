@@ -12,30 +12,35 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import model.Estandares;
+
+import model.Departamento;
+import model.Municipio;
 import model.ObjectReturn;
-import services.EstandaresServices;
+import services.DepartamentoServices;
+import services.MunicipiosServices;
 
-@Path("Estandares")
-public class EstandaresWS {
+@Path("Municipios")
+public class MunicipiosWS {
 
+	
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearMunicipios(@FormParam("municipios")String municipios, @FormParam("departamento")Integer departamentos) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objReturn.setData(objEstandares);
-			objEstandaresServices.crearEstandar(objReturn);
+			Departamento objDepartamento = new Departamento();
+			objDepartamento.setIdDepartamentos(departamentos);
+			Municipio objMunicipios = new Municipio();
+			objMunicipios.setMunicipios(municipios);
+			objMunicipios.setDepartamento(objDepartamento);
+			MunicipiosServices objMunicipiosService = new MunicipiosServices();
+			objReturn.setData(objMunicipios);
+			objMunicipiosService.crearmunicipio(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -59,21 +64,23 @@ public class EstandaresWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarMunicipios(@FormParam("idMunicipios")Integer idMunicipios,@FormParam("municipios")String municipios,@FormParam("departamento")Integer departamento) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
+			Departamento objDepartamento = new Departamento();
+			objDepartamento.setIdDepartamentos(departamento);
+			Municipio objMunicipios = new Municipio();
+			objMunicipios.setIdMunicipios(idMunicipios);
+			objMunicipios.setMunicipios(municipios);
+			objMunicipios.setDepartamento(objDepartamento);
+			MunicipiosServices objMunicipioService = new MunicipiosServices();
 
-			objReturn.setData(objEstandares);
+			objReturn.setData(objMunicipios);
 			// objGlobalServices.ValidarJSON(objReturn);
-			objEstandaresServices.actualizarEstandares(objReturn);
+			objMunicipioService.actualizarmunicipio(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -93,15 +100,15 @@ public class EstandaresWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getEstandares(@QueryParam("jtSorting") String jtSorting) {
+	public String getMunicipios(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objEstandaresServices.getall(objReturn);
+			MunicipiosServices objMunicipioService = new MunicipiosServices();
+			objMunicipioService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -120,5 +127,4 @@ public class EstandaresWS {
 		}
 
 	}
-	
 }

@@ -12,30 +12,28 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import model.Estandares;
 import model.ObjectReturn;
-import services.EstandaresServices;
+import model.TipoAsignacion;
+import services.TipoAsignacionServices;
 
-@Path("Estandares")
-public class EstandaresWS {
+@Path("TipoAsignacion")
+public class TipoAsignacionWS {
 
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearTipoAsignacion(@FormParam("tipoAsignacion")String tipoAsignacion) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objReturn.setData(objEstandares);
-			objEstandaresServices.crearEstandar(objReturn);
+			TipoAsignacion objTipoAsignacion = new TipoAsignacion();
+			objTipoAsignacion.setTipoAsignacion(tipoAsignacion);
+			TipoAsignacionServices objTipoAsignacionServices = new TipoAsignacionServices();
+			objReturn.setData(objTipoAsignacion);
+			objTipoAsignacionServices.crearTipoAsignacion(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -59,21 +57,20 @@ public class EstandaresWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarTipoAsignacion(@FormParam("idTipoAsignacion")Integer idTipoAsignacion,@FormParam("tipoAsignacion")String tipoAsignacion) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
+			TipoAsignacion objTipoAsignacion = new TipoAsignacion();
+			objTipoAsignacion.setIdTipoAsignacion(idTipoAsignacion);
+			objTipoAsignacion.setTipoAsignacion(tipoAsignacion);
+			TipoAsignacionServices objTipoAsignacionServices = new TipoAsignacionServices();
 
-			objReturn.setData(objEstandares);
+			objReturn.setData(objTipoAsignacion);
 			// objGlobalServices.ValidarJSON(objReturn);
-			objEstandaresServices.actualizarEstandares(objReturn);
+			objTipoAsignacionServices.actualizarTipoAsignacion(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -93,15 +90,15 @@ public class EstandaresWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getEstandares(@QueryParam("jtSorting") String jtSorting) {
+	public String getTipoAsignacion(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objEstandaresServices.getall(objReturn);
+			TipoAsignacionServices objTipoAsignacionServices = new TipoAsignacionServices();
+			objTipoAsignacionServices.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -120,5 +117,4 @@ public class EstandaresWS {
 		}
 
 	}
-	
 }

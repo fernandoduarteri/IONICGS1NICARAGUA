@@ -53,11 +53,11 @@ public class DepartamentoDAO extends JPAEntity<Departamento> {
 				objReturn.setData(super.findAllSorting(query));
 			}else {
 				query="SELECT d FROM Departamento d ORDER BY d." + sorting;
-				objReturn.setData(super.findAllSorting(query));
+				objReturn.setData(super.count());
 			}
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
-			objReturn.setTotal(super.findAll().size());
+			objReturn.setTotal(super.count());
 		} catch (Exception e) {
 			objReturn.setData("");
 			objReturn.setMensaje(e.getMessage());

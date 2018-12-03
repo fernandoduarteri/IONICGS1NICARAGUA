@@ -6,40 +6,50 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import model.Estandares;
+import model.Afiliado;
+import model.Cargo;
+import model.Contacto;
 import model.ObjectReturn;
-import services.EstandaresServices;
+import services.ContactoServices;
 
-@Path("Estandares")
-public class EstandaresWS {
+@Path("Contactos")
+public class ContactosWS {
 
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearContacto(@FormParam("afiliado") Integer afiliado,
+			@FormParam("titulo") String titulo, @FormParam("nombres") String nombres,
+			@FormParam("apellidos") String apellidos, @FormParam("cargo") Integer cargo,
+			@FormParam("estatus") boolean estatus) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objReturn.setData(objEstandares);
-			objEstandaresServices.crearEstandar(objReturn);
+			Contacto objContacto = new Contacto();
+			Afiliado objAfiliado = new Afiliado();
+			Cargo objCargo = new Cargo();
+			objCargo.setIdCargos(cargo);
+			objContacto.setAfiliado(objAfiliado);
+			objContacto.setTitulo(titulo);
+			objContacto.setNombres(nombres);
+			objContacto.setApellidos(apellidos);
+			objContacto.setCargo(objCargo);
+			objContacto.setEstatus(estatus);
+			ContactoServices objContactoService = new ContactoServices();
+			objReturn.setData(objCargo);
+			objContactoService.crearcontacto(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonElement objelement = objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			objJsonAux.add("Record", objelement);
 			resultado = objJSON.toJson(objJsonAux);
@@ -52,28 +62,34 @@ public class EstandaresWS {
 		}
 
 	}
-	
-	
-	
+
 	@Path("/Actualizar")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarContacto(@FormParam("idContactos") Integer idContactos,@FormParam("afiliado") Integer afiliado,
+			@FormParam("titulo") String titulo, @FormParam("nombres") String nombres,
+			@FormParam("apellidos") String apellidos, @FormParam("cargo") Integer cargo,
+			@FormParam("estatus") boolean estatus) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-
-			objReturn.setData(objEstandares);
-			// objGlobalServices.ValidarJSON(objReturn);
-			objEstandaresServices.actualizarEstandares(objReturn);
+			Contacto objContacto = new Contacto();
+			Afiliado objAfiliado = new Afiliado();
+			Cargo objCargo = new Cargo();
+			objCargo.setIdCargos(cargo);
+			objContacto.setIdContactos(idContactos);
+			objContacto.setAfiliado(objAfiliado);
+			objContacto.setTitulo(titulo);
+			objContacto.setNombres(nombres);
+			objContacto.setApellidos(apellidos);
+			objContacto.setCargo(objCargo);
+			objContacto.setEstatus(estatus);
+			ContactoServices objContactoService = new ContactoServices();
+			objReturn.setData(objCargo);
+			objContactoService.actualizarcontacto(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -88,25 +104,24 @@ public class EstandaresWS {
 		}
 
 	}
-	
-	
+
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getEstandares(@QueryParam("jtSorting") String jtSorting) {
+	public String getContactos(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objEstandaresServices.getall(objReturn);
+			ContactoServices objContactoService = new ContactoServices();
+			objContactoService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
 			resultado = objJSON.toJson(objReturn.getData());
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonElement objelement = objJSON.toJsonTree(objReturn.getData());
 			JsonArray objJsonArray = objelement.getAsJsonArray();
 			objJsonAux.addProperty("Result", "OK");
 			objJsonAux.add("Records", objJsonArray);
@@ -120,5 +135,5 @@ public class EstandaresWS {
 		}
 
 	}
-	
+
 }

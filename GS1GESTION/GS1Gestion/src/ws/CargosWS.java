@@ -12,30 +12,30 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import model.Estandares;
-import model.ObjectReturn;
-import services.EstandaresServices;
 
-@Path("Estandares")
-public class EstandaresWS {
+import model.Cargo;
+import model.ObjectReturn;
+import services.CargoServices;
+
+@Path("Cargo")
+public class CargosWS {
 
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearCargo(@FormParam("cargo")String cargo,@FormParam("descripcion")String descripcion) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objReturn.setData(objEstandares);
-			objEstandaresServices.crearEstandar(objReturn);
+			Cargo objCargo = new Cargo();
+			objCargo.setDescripcion(descripcion);
+			objCargo.setCargo(cargo);
+			CargoServices objCargoService = new CargoServices();
+			objReturn.setData(objCargo);
+			objCargoService.crearcargo(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -59,21 +59,21 @@ public class EstandaresWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarCargo(@FormParam("idCargos")Integer idCargos,@FormParam("cargo")String cargo,@FormParam("descripcion")String descripcion) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
+			Cargo objCargo = new Cargo();
+			objCargo.setIdCargos(idCargos);
+			objCargo.setCargo(cargo);
+			objCargo.setDescripcion(descripcion);
+			CargoServices objCargoService = new CargoServices();
 
-			objReturn.setData(objEstandares);
+			objReturn.setData(objCargoService);
 			// objGlobalServices.ValidarJSON(objReturn);
-			objEstandaresServices.actualizarEstandares(objReturn);
+			objCargoService.actualizarcargo(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -93,15 +93,15 @@ public class EstandaresWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getEstandares(@QueryParam("jtSorting") String jtSorting) {
+	public String getDepartamentos(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
 		JsonObject objJsonAux = new	JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objEstandaresServices.getall(objReturn);
+			CargoServices objCargoService = new CargoServices();
+			objCargoService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -120,5 +120,6 @@ public class EstandaresWS {
 		}
 
 	}
+	
 	
 }

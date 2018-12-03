@@ -3,21 +3,28 @@ package dao;
 import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
+import model.DetalleEstatus;
 import model.ObjectReturn;
-import model.TipoEmpresa;
 import persist.JPAEntity;
 
-public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 
-	public TipoEmpresaDAO(Class<TipoEmpresa> entityClass) {
+public class DetalleEstatusDAO extends JPAEntity<DetalleEstatus> {
+
+	public DetalleEstatusDAO(Class<DetalleEstatus> entityClass) {
 		super(entityClass);
 	}
 
-	public void crearTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void crearDetalleEstatus(ObjectReturn objReturn) throws Exception{
+		DetalleEstatus objDetalleEstatus = new DetalleEstatus();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.create(objTipoEmpresa);
+			objDetalleEstatus = (DetalleEstatus) objReturn.getData();
+			super.create(objDetalleEstatus);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -30,11 +37,11 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		
 	}
 
-	public void actualizarTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	public void actualizarDetalleEstatus(ObjectReturn objReturn) throws Exception{
+		DetalleEstatus objDetalleEstatus = new DetalleEstatus();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.edit(objTipoEmpresa);
+			objDetalleEstatus = (DetalleEstatus) objReturn.getData();
+			super.edit(objDetalleEstatus);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -52,11 +59,11 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		String query="";
 		try {
 			if (sorting ==null) {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t.idTipoEmpresa ASC";
+				query="SELECT d FROM DetalleEstatus d ORDER BY d.idDetalleEstatus ASC";
 				objReturn.setData(super.findAllSorting(query));
 			}else {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
+				query="SELECT d FROM DetalleEstatus d ORDER BY d." + sorting;
+				objReturn.setData(super.count());
 			}
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
@@ -68,12 +75,6 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setTotal(0);
 		}
 		
-	}
-
-	@Override
-	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

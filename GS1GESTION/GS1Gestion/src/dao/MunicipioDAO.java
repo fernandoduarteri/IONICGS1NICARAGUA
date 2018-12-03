@@ -1,23 +1,26 @@
 package dao;
 
+
 import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
+import model.Departamento;
+import model.Municipio;
 import model.ObjectReturn;
-import model.TipoEmpresa;
 import persist.JPAEntity;
 
-public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 
-	public TipoEmpresaDAO(Class<TipoEmpresa> entityClass) {
+public class MunicipioDAO  extends JPAEntity<Municipio>{
+
+	public MunicipioDAO(Class<Municipio> entityClass) {
 		super(entityClass);
 	}
 
-	public void crearTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	public void crearMunicipio(ObjectReturn objReturn) throws Exception{
+		Municipio objMunicipio = new Municipio();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.create(objTipoEmpresa);
+			objMunicipio = (Municipio) objReturn.getData();
+			super.create(objMunicipio);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -30,11 +33,17 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		
 	}
 
-	public void actualizarTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void actualizarMunicipio(ObjectReturn objReturn) throws Exception{
+		Municipio objMunicipio = new Municipio();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.edit(objTipoEmpresa);
+			objMunicipio = (Municipio) objReturn.getData();
+			super.edit(objMunicipio);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -52,12 +61,11 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		String query="";
 		try {
 			if (sorting ==null) {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t.idTipoEmpresa ASC";
-				objReturn.setData(super.findAllSorting(query));
+				query="SELECT m FROM Municipio m ORDER BY m.idMunicipios ASC";
 			}else {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
+				query="SELECT m FROM Municipio m ORDER BY m." + sorting;
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());
@@ -68,12 +76,6 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setTotal(0);
 		}
 		
-	}
-
-	@Override
-	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -65,7 +65,6 @@ public abstract class JPAEntity<T> {
 		return getEntityManager().find(entityClass, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> findAllSorting(String query) throws Exception {
 		List<T> getList = new ArrayList<T>();
 		try {
@@ -74,7 +73,7 @@ public abstract class JPAEntity<T> {
 			EntityTransaction tx;
 			tx = em.getTransaction();
 			tx.begin();
-			TypedQuery<Departamento> q = em.createQuery(query, Departamento.class);
+			TypedQuery<T> q = em.createQuery(query, entityClass);
 			getList = (List<T>) q.getResultList();
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -83,7 +82,7 @@ public abstract class JPAEntity<T> {
 		}
 		return getList;
 	}
-
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<T> findAll() throws Exception {
 		List<T> getList = new ArrayList<T>();
 		try {
@@ -94,9 +93,10 @@ public abstract class JPAEntity<T> {
 			tx.begin();
 //			TypedQuery<Departamento> q = em.createNamedQuery("Departamento.findAll", Departamento.class);
 //			getList=(List<T>) getEntityManager().createNamedQuery("Departamento.findAll", Departamento.class).getResultList();
-//			javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-//			cq.select(cq.from(entityClass));
-//			getList=getEntityManager().createQuery(cq).getResultList();
+			javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+			cq.select(cq.from(entityClass));
+			getList = em.createQuery(cq).getResultList();
+
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		} finally {
@@ -105,6 +105,7 @@ public abstract class JPAEntity<T> {
 		return getList;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<T> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
 		cq.select(cq.from(entityClass));
@@ -114,12 +115,23 @@ public abstract class JPAEntity<T> {
 		return q.getResultList();
 	}
 
-	public int count() {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
-		cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-		javax.persistence.Query q = getEntityManager().createQuery(cq);
-		return ((Long) q.getSingleResult()).intValue();
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public int count() throws Exception {
+		int cuenta=0;
+		try {
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("GS1Gestion");
+			em = factory.createEntityManager();
+			javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+			javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+			cq.select(em.getCriteriaBuilder().count(rt));
+			javax.persistence.Query q = em.createQuery(cq);
+			cuenta=((Long) q.getSingleResult()).intValue();
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}finally {
+			em.close();
+		}
+		return cuenta;
 	}
 
 }

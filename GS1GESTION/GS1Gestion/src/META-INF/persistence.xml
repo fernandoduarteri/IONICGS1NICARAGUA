@@ -12,7 +12,17 @@
 		<class>model.TipoEmpresa</class>
 		<class>model.TipoCorreo</class>
 		<class>model.TipoTelefono</class>
-		<class>model.Estandare</class>
+		<class>model.Estandares</class>
+		<class>model.Cargo</class>
+		<class>model.TipoAsignacion</class>
+		<class>model.Municipio</class>
+		<class>model.Afiliado</class>
+		<class>model.Contacto</class>
+		<class>model.DetalleContacto</class>
+		<class>model.AfiliadoEstandare</class>
+		<class>model.AfiliadoEstandarePK</class>
+		<class>model.DetalleEstatus</class>
+		<class>model.ItemsTrazable</class>
 		<!-- <properties>
 			<property name="eclipselink.weaving.lazy" value="true" />
 			<property name="eclipselink.cache.type.default" value="NONE" />

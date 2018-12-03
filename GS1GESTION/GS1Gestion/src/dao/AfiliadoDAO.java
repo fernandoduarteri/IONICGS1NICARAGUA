@@ -3,21 +3,23 @@ package dao;
 import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
+import model.Afiliado;
+import model.Departamento;
 import model.ObjectReturn;
-import model.TipoEmpresa;
 import persist.JPAEntity;
 
-public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 
-	public TipoEmpresaDAO(Class<TipoEmpresa> entityClass) {
+public class AfiliadoDAO extends JPAEntity<Afiliado>{
+
+	public AfiliadoDAO(Class<Afiliado> entityClass) {
 		super(entityClass);
 	}
 
-	public void crearTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	public void crearAfiliado(ObjectReturn objReturn) throws Exception{
+		Afiliado objAfiliado = new Afiliado();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.create(objTipoEmpresa);
+			objAfiliado = (Afiliado) objReturn.getData();
+			super.create(objAfiliado);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -30,11 +32,17 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		
 	}
 
-	public void actualizarTipoEmpresa(ObjectReturn objReturn) throws Exception{
-		TipoEmpresa objTipoEmpresa = new TipoEmpresa();
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void actualizarAfiliado(ObjectReturn objReturn) throws Exception{
+		Afiliado objAfiliado = new Afiliado();
 		try {
-			objTipoEmpresa = (TipoEmpresa) objReturn.getData();
-			super.edit(objTipoEmpresa);
+			objAfiliado = (Afiliado) objReturn.getData();
+			super.edit(objAfiliado);
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(1);
@@ -52,11 +60,11 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		String query="";
 		try {
 			if (sorting ==null) {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t.idTipoEmpresa ASC";
+				query="SELECT a FROM Afiliado a ORDER BY a.idAfiliado ASC";
 				objReturn.setData(super.findAllSorting(query));
 			}else {
-				query="SELECT t FROM TipoEmpresa t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
+				query="SELECT a FROM Afiliado a ORDER BY a." + sorting;
+				objReturn.setData(super.count());
 			}
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
@@ -68,12 +76,6 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 			objReturn.setTotal(0);
 		}
 		
-	}
-
-	@Override
-	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

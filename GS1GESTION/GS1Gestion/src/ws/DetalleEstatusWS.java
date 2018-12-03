@@ -1,5 +1,7 @@
 package ws;
 
+import java.sql.Timestamp;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -12,34 +14,45 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import model.Estandares;
-import model.ObjectReturn;
-import services.EstandaresServices;
 
-@Path("Estandares")
-public class EstandaresWS {
+import model.Afiliado;
+import model.DetalleEstatus;
+import model.ObjectReturn;
+import services.DetalleEstatusServices;
+import services.GlobalServices;
+
+@Path("DetalleEstatus")
+
+public class DetalleEstatusWS {
+
+	GlobalServices objGlobalServices = new GlobalServices();
 
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearDetalleEstatus(@FormParam("afiliado") Integer afiliado,
+			@FormParam("fechaEstatus") Timestamp fechaEstatus, @FormParam("estatus") boolean estatus,
+			@FormParam("comentario") String comentario) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objReturn.setData(objEstandares);
-			objEstandaresServices.crearEstandar(objReturn);
+			Afiliado objAfiliaddo = new Afiliado();
+			objAfiliaddo.setIdAfiliado(afiliado);
+			DetalleEstatus objDetalleEstatus = new DetalleEstatus();
+			objDetalleEstatus.setAfiliado(objAfiliaddo);
+			objDetalleEstatus.setFechaEstatus(fechaEstatus);
+			objDetalleEstatus.setEstatus(estatus);
+			objDetalleEstatus.setComentario(comentario);
+			DetalleEstatusServices objDetalleEstatusService = new DetalleEstatusServices();
+			objReturn.setData(objAfiliaddo);
+			objDetalleEstatusService.creardetalleestatus(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonElement objelement = objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			objJsonAux.add("Record", objelement);
 			resultado = objJSON.toJson(objJsonAux);
@@ -52,28 +65,31 @@ public class EstandaresWS {
 		}
 
 	}
-	
-	
-	
+
 	@Path("/Actualizar")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarDetalleEstatus(@FormParam("idDetalleEstatus") Integer idDetalleEstatus,
+			@FormParam("afiliado") Integer afiliado,
+			@FormParam("fechaEstatus") Timestamp fechaEstatus, @FormParam("estatus") boolean estatus,
+			@FormParam("comentario") String comentario) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
-			Estandares objEstandares = new Estandares();
-			objEstandares.setDescripcion(descripcion);
-			objEstandares.setEstandar(estandar);
-			objEstandares.setEstatus(estatus);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-
-			objReturn.setData(objEstandares);
-			// objGlobalServices.ValidarJSON(objReturn);
-			objEstandaresServices.actualizarEstandares(objReturn);
+			Afiliado objAfiliaddo = new Afiliado();
+			objAfiliaddo.setIdAfiliado(afiliado);
+			DetalleEstatus objDetalleEstatus = new DetalleEstatus();
+			objDetalleEstatus.setIdDetalleEstatus(idDetalleEstatus);
+			objDetalleEstatus.setAfiliado(objAfiliaddo);
+			objDetalleEstatus.setFechaEstatus(fechaEstatus);
+			objDetalleEstatus.setEstatus(estatus);
+			objDetalleEstatus.setComentario(comentario);
+			DetalleEstatusServices objDetalleEstatusService = new DetalleEstatusServices();
+			objReturn.setData(objAfiliaddo);
+			objDetalleEstatusService.actualizardetalleestatus(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
@@ -88,25 +104,24 @@ public class EstandaresWS {
 		}
 
 	}
-	
-	
+
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getEstandares(@QueryParam("jtSorting") String jtSorting) {
+	public String getDetalleEstatus(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
-		JsonObject objJsonAux = new	JsonObject();
+		JsonObject objJsonAux = new JsonObject();
 		try {
 			objReturn.setData(jtSorting);
-			EstandaresServices objEstandaresServices = new EstandaresServices();
-			objEstandaresServices.getall(objReturn);
+			DetalleEstatusServices objDetalleEstatusService = new DetalleEstatusServices();
+			objDetalleEstatusService.getall(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
 			resultado = objJSON.toJson(objReturn.getData());
-			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonElement objelement = objJSON.toJsonTree(objReturn.getData());
 			JsonArray objJsonArray = objelement.getAsJsonArray();
 			objJsonAux.addProperty("Result", "OK");
 			objJsonAux.add("Records", objJsonArray);
@@ -120,5 +135,4 @@ public class EstandaresWS {
 		}
 
 	}
-	
 }
