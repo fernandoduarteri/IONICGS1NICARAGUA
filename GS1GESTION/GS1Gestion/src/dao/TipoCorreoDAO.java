@@ -3,6 +3,7 @@ package dao;
 import javax.persistence.EntityManager;
 
 import Utilidades.Constantes;
+import model.Departamento;
 import model.ObjectReturn;
 import model.TipoCorreo;
 import persist.JPAEntity;
@@ -60,7 +61,7 @@ public class TipoCorreoDAO extends JPAEntity<TipoCorreo> {
 			}
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
-			objReturn.setTotal(super.count());
+			objReturn.setTotal(super.findAll().size());
 		} catch (Exception e) {
 			objReturn.setData("");
 			objReturn.setMensaje(e.getMessage());

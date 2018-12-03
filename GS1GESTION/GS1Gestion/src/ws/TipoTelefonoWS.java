@@ -11,8 +11,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import model.Departamento;
 import model.ObjectReturn;
 import model.TipoTelefono;
+import services.DepartamentoServices;
 import services.GlobalServices;
 import services.TipoTelefonoServices;
 
@@ -76,6 +79,7 @@ public class TipoTelefonoWS {
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
+			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			resultado = objJSON.toJson(objJsonAux);
 			return resultado;

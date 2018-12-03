@@ -12,8 +12,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import model.Departamento;
 import model.ObjectReturn;
 import model.OperadorTelefonica;
+import services.DepartamentoServices;
 import services.GlobalServices;
 import services.OperadorTelefonicaServices;
 
@@ -57,7 +59,7 @@ public class OperadorTelefoniaWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarOperadorTelefonica(@FormParam("idOperadorTelefonica") Integer idOperadorTelefonica,
+	public String ActualizarDepartamento(@FormParam("idOperadorTelefonica") Integer idOperadorTelefonica,
 			@FormParam("operador") String operador) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
@@ -75,6 +77,7 @@ public class OperadorTelefoniaWS {
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
 			}
+			JsonElement objelement = objJSON.toJsonTree(objReturn.getData());
 			objJsonAux.addProperty("Result", "OK");
 			resultado = objJSON.toJson(objJsonAux);
 			return resultado;
@@ -90,7 +93,7 @@ public class OperadorTelefoniaWS {
 	@Path("/Lista")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String getOperadorTelefonica(@QueryParam("jtSorting") String jtSorting) {
+	public String getDepartamentos(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new Gson();
