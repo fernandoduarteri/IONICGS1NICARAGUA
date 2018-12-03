@@ -92,6 +92,7 @@ public class DepartamentoWS {
 	
 	@Path("/Lista")
 	@POST
+
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public String getDepartamentos(@QueryParam("jtSorting") String jtSorting) {
 		ObjectReturn objReturn = new ObjectReturn();

@@ -12,7 +12,7 @@
 		<class>model.TipoEmpresa</class>
 		<class>model.TipoCorreo</class>
 		<class>model.TipoTelefono</class>
-		<class>model.Estandare</class>
+		<class>model.Estandares</class>
 		<!-- <properties>
 			<property name="eclipselink.weaving.lazy" value="true" />
 			<property name="eclipselink.cache.type.default" value="NONE" />
