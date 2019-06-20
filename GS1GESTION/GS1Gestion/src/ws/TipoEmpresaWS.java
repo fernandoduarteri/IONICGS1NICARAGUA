@@ -19,6 +19,8 @@ import services.TipoEmpresaServices;
 
 @Path("TipoEmpresa")
 public class TipoEmpresaWS {
+	
+	//Añadiendo
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
