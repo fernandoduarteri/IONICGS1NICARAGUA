@@ -15,6 +15,17 @@ import javax.persistence.*;
 @NamedQuery(name="Departamento.findAllSorting", query="SELECT d FROM Departamento d order by :orderopcion")})
 
 public class Departamento implements Serializable {
+	public Departamento(int idDepartamentos) {
+		super();
+		this.idDepartamentos = idDepartamentos;
+	}
+
+	public Departamento(int idDepartamentos, String departamento) {
+		super();
+		this.idDepartamentos = idDepartamentos;
+		this.departamento = departamento;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

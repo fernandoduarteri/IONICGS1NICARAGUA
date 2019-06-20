@@ -12,6 +12,24 @@ import javax.persistence.*;
 @Table(name="Cargos")
 @NamedQuery(name="Cargo.findAll", query="SELECT c FROM Cargo c")
 public class Cargo implements Serializable {
+	public Cargo(int idCargos) {
+		super();
+		this.idCargos = idCargos;
+	}
+
+	public Cargo(String cargo, String descripcion) {
+		super();
+		this.cargo = cargo;
+		this.descripcion = descripcion;
+	}
+
+	public Cargo(int idCargos, String cargo, String descripcion) {
+		super();
+		this.idCargos = idCargos;
+		this.cargo = cargo;
+		this.descripcion = descripcion;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

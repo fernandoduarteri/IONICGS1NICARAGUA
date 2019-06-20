@@ -27,7 +27,7 @@ public class ItemsTrazable implements Serializable {
 	private String digitoVerificacion;
 
 	@Column(name="Estatus")
-	private byte estatus;
+	private boolean estatus;
 
 	@Column(name="FechaAltaItemTrazable")
 	private Timestamp fechaAltaItemTrazable;
@@ -56,7 +56,7 @@ public class ItemsTrazable implements Serializable {
 	//bi-directional many-to-one association to Estandares
 	@ManyToOne
 	@JoinColumn(name="IdEstandares")
-	private Estandares estandare;
+	private Estandares estandares;
 
 	public ItemsTrazable() {
 	}
@@ -85,11 +85,11 @@ public class ItemsTrazable implements Serializable {
 		this.digitoVerificacion = digitoVerificacion;
 	}
 
-	public byte getEstatus() {
+	public boolean getEstatus() {
 		return this.estatus;
 	}
 
-	public void setEstatus(byte estatus) {
+	public void setEstatus(boolean estatus) {
 		this.estatus = estatus;
 	}
 
@@ -150,11 +150,11 @@ public class ItemsTrazable implements Serializable {
 	}
 
 	public Estandares getEstandare() {
-		return this.estandare;
+		return this.estandares;
 	}
 
 	public void setEstandare(Estandares estandare) {
-		this.estandare = estandare;
+		this.estandares = estandare;
 	}
 
 }

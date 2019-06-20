@@ -9,26 +9,37 @@ import javax.persistence.*;
  */
 @Embeddable
 public class AfiliadoEstandarePK implements Serializable {
-	//default serial version id, required for serializable classes.
+	
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="IdAfiliado", insertable=false, updatable=false)
+	@Column(name = "IdAfiliado", insertable = false, updatable = false)
 	private int idAfiliado;
 
-	@Column(name="IdEstandares", insertable=false, updatable=false)
+	@Column(name = "IdEstandares", insertable = false, updatable = false)
 	private int idEstandares;
+
+	public AfiliadoEstandarePK(int idAfiliado, int idEstandares) {
+		super();
+		this.idAfiliado = idAfiliado;
+		this.idEstandares = idEstandares;
+	}
 
 	public AfiliadoEstandarePK() {
 	}
+
 	public int getIdAfiliado() {
 		return this.idAfiliado;
 	}
+
 	public void setIdAfiliado(int idAfiliado) {
 		this.idAfiliado = idAfiliado;
 	}
+
 	public int getIdEstandares() {
 		return this.idEstandares;
 	}
+
 	public void setIdEstandares(int idEstandares) {
 		this.idEstandares = idEstandares;
 	}
@@ -40,10 +51,8 @@ public class AfiliadoEstandarePK implements Serializable {
 		if (!(other instanceof AfiliadoEstandarePK)) {
 			return false;
 		}
-		AfiliadoEstandarePK castOther = (AfiliadoEstandarePK)other;
-		return 
-			(this.idAfiliado == castOther.idAfiliado)
-			&& (this.idEstandares == castOther.idEstandares);
+		AfiliadoEstandarePK castOther = (AfiliadoEstandarePK) other;
+		return (this.idAfiliado == castOther.idAfiliado) && (this.idEstandares == castOther.idEstandares);
 	}
 
 	public int hashCode() {
@@ -51,7 +60,7 @@ public class AfiliadoEstandarePK implements Serializable {
 		int hash = 17;
 		hash = hash * prime + this.idAfiliado;
 		hash = hash * prime + this.idEstandares;
-		
+
 		return hash;
 	}
 }

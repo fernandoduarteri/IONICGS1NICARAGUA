@@ -4,54 +4,74 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-
 /**
  * The persistent class for the AfiliadoEstandares database table.
  * 
  */
 @Entity
-@Table(name="AfiliadoEstandares")
-@NamedQuery(name="AfiliadoEstandare.findAll", query="SELECT a FROM AfiliadoEstandare a")
+@Table(name = "AfiliadoEstandares")
+@NamedQuery(name = "AfiliadoEstandare.findAll", query = "SELECT a FROM AfiliadoEstandare a")
 public class AfiliadoEstandare implements Serializable {
-	private static final long serialVersionUID = 1L;
-
 	@EmbeddedId
 	private AfiliadoEstandarePK id;
+	private static final long serialVersionUID = 1L;
 
-	@Column(name="AfiliadoEstandarescol")
+	@Column(name = "AfiliadoEstandarescol")
 	private String afiliadoEstandarescol;
-
-	@Column(name="Comentario")
+	
+	@Column(name = "Comentario")
 	private String comentario;
-
-	@Column(name="DigitosCodificables")
+	
+	@Column(name = "DigitosCodificables")
 	private int digitosCodificables;
-
-	@Column(name="Estatus")
-	private byte estatus;
-
-	@Column(name="FechaAltaEstandar")
+	
+	@Column(name = "Estatus")
+	private boolean estatus;
+	
+	@Column(name = "FechaAltaEstandar")
 	private Timestamp fechaAltaEstandar;
-
-	@Column(name="NumeroBase")
+	
+	@Column(name = "NumeroBase")
 	private String numeroBase;
-
-	//bi-directional many-to-one association to Afiliado
+	
+	// bi-directional many-to-one association to Afiliado
 	@ManyToOne
-	@JoinColumn(name="IdAfiliado")
+	@JoinColumn(name = "IdAfiliado")
 	private Afiliado afiliado;
-
-	//bi-directional many-to-one association to Estandare
+	
+	// bi-directional many-to-one association to Estandare
 	@ManyToOne
-	@JoinColumn(name="IdEstandares")
+	@JoinColumn(name = "IdEstandares")
 	private Estandares estandare;
-
-	//bi-directional many-to-one association to TipoAsignacion
+	
+	// bi-directional many-to-one association to TipoAsignacion
 	@ManyToOne
-	@JoinColumn(name="IdTipoAsignacion")
+	@JoinColumn(name = "IdTipoAsignacion")
 	private TipoAsignacion tipoAsignacion;
+	public AfiliadoEstandare(String afiliadoEstandarescol, String comentario, int digitosCodificables, boolean estatus,
+			Timestamp fechaAltaEstandar, String numeroBase, Afiliado afiliado, Estandares estandare,
+			TipoAsignacion tipoAsignacion) {
+		super();
+		this.afiliadoEstandarescol = afiliadoEstandarescol;
+		this.comentario = comentario;
+		this.digitosCodificables = digitosCodificables;
+		this.estatus = estatus;
+		this.fechaAltaEstandar = fechaAltaEstandar;
+		this.numeroBase = numeroBase;
+		this.afiliado = afiliado;
+		this.estandare = estandare;
+		this.tipoAsignacion = tipoAsignacion;
+		id = new AfiliadoEstandarePK(afiliado.getIdAfiliado(),estandare.getIdEstandares());
+
+	}
+
 
 	public AfiliadoEstandare() {
+	}
+
+	public AfiliadoEstandare(Integer idAfiliado, Integer idEstandares, Timestamp fechaAltaEstandar, String numeroBase,
+			Integer digitosCodificables, boolean estatus, String comentario, TipoAsignacion tipoAsignacion) {
+
 	}
 
 	public AfiliadoEstandarePK getId() {
@@ -86,11 +106,11 @@ public class AfiliadoEstandare implements Serializable {
 		this.digitosCodificables = digitosCodificables;
 	}
 
-	public byte getEstatus() {
+	public boolean getEstatus() {
 		return this.estatus;
 	}
 
-	public void setEstatus(byte estatus) {
+	public void setEstatus(boolean estatus) {
 		this.estatus = estatus;
 	}
 
@@ -133,5 +153,12 @@ public class AfiliadoEstandare implements Serializable {
 	public void setTipoAsignacion(TipoAsignacion tipoAsignacion) {
 		this.tipoAsignacion = tipoAsignacion;
 	}
+	
+	public int hashCode() {
+        return id.hashCode();
+    }
+    public boolean equals(Object obj) {
+        return id.equals(obj);
+    }
 
 }

@@ -12,6 +12,26 @@ import javax.persistence.*;
 @Table(name="Estandares")
 @NamedQuery(name="Estandare.findAll", query="SELECT e FROM Estandares e")
 public class Estandares implements Serializable {
+	public Estandares(int idEstandares) {
+		super();
+		this.idEstandares = idEstandares;
+	}
+
+	public Estandares(String descripcion, String estandar, boolean estatus) {
+		super();
+		this.descripcion = descripcion;
+		this.estandar = estandar;
+		this.estatus = estatus;
+	}
+
+	public Estandares(int idEstandares, String descripcion, String estandar, boolean estatus) {
+		super();
+		this.idEstandares = idEstandares;
+		this.descripcion = descripcion;
+		this.estandar = estandar;
+		this.estatus = estatus;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,7 +46,7 @@ public class Estandares implements Serializable {
 	private String estandar;
 
 	@Column(name="Estatus")
-	private byte estatus;
+	private boolean estatus;
 
 	public Estandares() {
 	}
@@ -55,11 +75,11 @@ public class Estandares implements Serializable {
 		this.estandar = estandar;
 	}
 
-	public byte getEstatus() {
+	public boolean getEstatus() {
 		return this.estatus;
 	}
 
-	public void setEstatus(byte estatus) {
+	public void setEstatus(boolean estatus) {
 		this.estatus = estatus;
 	}
 

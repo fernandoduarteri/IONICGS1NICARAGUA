@@ -9,8 +9,44 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="Afiliado")
 @NamedQuery(name="Afiliado.findAll", query="SELECT a FROM Afiliado a")
 public class Afiliado implements Serializable {
+	public Afiliado(int idAfiliado) {
+		super();
+		this.idAfiliado = idAfiliado;
+	}
+
+	public Afiliado(String direccion, String nomComercial, String razonSocial, String ruc, boolean saldoPendiente,
+			String telefono, Departamento departamento, Municipio municipio, TipoEmpresa tipoEmpresa) {
+		super();
+		this.direccion = direccion;
+		this.nomComercial = nomComercial;
+		this.razonSocial = razonSocial;
+		this.ruc = ruc;
+		this.saldoPendiente = saldoPendiente;
+		this.telefono = telefono;
+		this.departamento = departamento;
+		this.municipio = municipio;
+		this.tipoEmpresa = tipoEmpresa;
+	}
+
+	public Afiliado(int idAfiliado, String direccion, String nomComercial, String razonSocial, String ruc,
+			boolean saldoPendiente, String telefono, Departamento departamento, Municipio municipio,
+			TipoEmpresa tipoEmpresa) {
+		super();
+		this.idAfiliado = idAfiliado;
+		this.direccion = direccion;
+		this.nomComercial = nomComercial;
+		this.razonSocial = razonSocial;
+		this.ruc = ruc;
+		this.saldoPendiente = saldoPendiente;
+		this.telefono = telefono;
+		this.departamento = departamento;
+		this.municipio = municipio;
+		this.tipoEmpresa = tipoEmpresa;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

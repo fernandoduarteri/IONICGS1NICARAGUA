@@ -53,11 +53,11 @@ public class TipoTelefonoDAO extends JPAEntity<TipoTelefono> {
 		try {
 			if (sorting ==null) {
 				query="SELECT t FROM TipoTelefono t ORDER BY t.idTipoTelefono ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			}else {
 				query="SELECT t FROM TipoTelefono t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

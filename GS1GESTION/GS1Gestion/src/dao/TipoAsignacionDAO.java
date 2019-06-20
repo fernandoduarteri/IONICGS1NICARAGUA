@@ -53,11 +53,11 @@ public class TipoAsignacionDAO extends JPAEntity<TipoAsignacion> {
 		try {
 			if (sorting == null) {
 				query = "SELECT t FROM TipoAsignacion t ORDER BY t.idTipoAsignacion ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			} else {
 				query = "SELECT t FROM TipoAsignacion t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

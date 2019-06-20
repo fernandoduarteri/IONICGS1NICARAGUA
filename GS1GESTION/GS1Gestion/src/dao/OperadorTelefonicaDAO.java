@@ -61,11 +61,11 @@ public class OperadorTelefonicaDAO extends JPAEntity<OperadorTelefonica> {
 		try {
 			if (sorting ==null) {
 				query="SELECT o FROM OperadorTelefonica o ORDER BY o.idOperadorTelefonica ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			}else {
 				query="SELECT o FROM OperadorTelefonica o ORDER BY o." + sorting;
-				objReturn.setData(super.findAllSorting(query));
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

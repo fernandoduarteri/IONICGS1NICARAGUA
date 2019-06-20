@@ -54,7 +54,7 @@ public class DetalleContactosWS {
 			objDetalleContacto.setTipoCorreo(objTipoCorreo);
 			objDetalleContacto.setOperadorTelefonica(objOperadorTelefonica);
 			DetalleContactoServices objDetalleContactoService = new DetalleContactoServices();
-			objReturn.setData(objContacto);
+			objReturn.setData(objDetalleContacto);
 			objDetalleContactoService.creardetallecontacto(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
@@ -103,7 +103,7 @@ public class DetalleContactosWS {
 			objDetalleContacto.setTipoCorreo(objTipoCorreo);
 			objDetalleContacto.setOperadorTelefonica(objOperadorTelefonica);
 			DetalleContactoServices objDetalleContactoService = new DetalleContactoServices();
-			objReturn.setData(objContacto);
+			objReturn.setData(objDetalleContacto);
 			objDetalleContactoService.actualizardetallecontacto(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());

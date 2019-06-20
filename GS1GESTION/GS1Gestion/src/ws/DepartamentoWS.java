@@ -118,4 +118,46 @@ public class DepartamentoWS {
 		}
 
 	}
+	
+	
+	@Path("/Options")
+	@POST
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public String getOptions() {
+		ObjectReturn objReturn = new ObjectReturn();
+		String resultado = "";
+		Gson objJSON = new Gson();
+		JsonObject objJsonAux = new	JsonObject();
+		try {
+			DepartamentoServices objDepartamentoService = new DepartamentoServices();
+			objDepartamentoService.getall(objReturn);
+			if (!objReturn.getExito()) {
+				throw new Exception(objReturn.getMensaje());
+			}
+			resultado = objJSON.toJson(objReturn.getData());
+			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonArray objJsonArray = objelement.getAsJsonArray();
+			JsonArray objJsonArrayAux = new JsonArray();
+			for(int i=0; i<objJsonArray.size();i++) {
+				JsonObject objJsonObject = objJsonArray.get(i).getAsJsonObject();
+				JsonObject objJsonObjectAux = new JsonObject();
+				int intId=objJsonObject.get("idDepartamentos").getAsInt();
+				String strDepartamento =objJsonObject.get("departamento").getAsString();
+				objJsonObjectAux.addProperty("Value", intId);
+				objJsonObjectAux.addProperty("DisplayText", strDepartamento);
+				objJsonArrayAux.add(objJsonObjectAux);
+				
+			}
+			objJsonAux.addProperty("Result", "OK");
+			objJsonAux.add("Options", objJsonArrayAux);
+			resultado = objJSON.toJson(objJsonAux);
+			return resultado;
+		} catch (Exception e) {
+			objJsonAux.addProperty("Result", "ERROR");
+			objJsonAux.addProperty("Message", e.getMessage());
+			resultado = objJSON.toJson(objJsonAux);
+			return resultado;
+		}
+
+	}
 }

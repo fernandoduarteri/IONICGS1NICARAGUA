@@ -37,7 +37,7 @@ public class ContactoDAO extends JPAEntity<Contacto>{
 		
 	}
 
-	public void actualizarContacto(ObjectReturn objReturn) {
+	public void actualizarContacto(ObjectReturn objReturn) throws Exception {
 		Contacto objContacto = new Contacto();
 		try {
 			objContacto = (Contacto) objReturn.getData();
@@ -54,17 +54,34 @@ public class ContactoDAO extends JPAEntity<Contacto>{
 		
 	}
 
-	public void getall(ObjectReturn objReturn) {
+	public void getall(ObjectReturn objReturn) throws Exception {
 		String sorting = (String) objReturn.getData();
 		String query="";
 		try {
 			if (sorting ==null) {
 				query="SELECT c FROM Contacto c ORDER BY c.idContactos ASC";
-				objReturn.setData(super.findAllSorting(query));
 			}else {
 				query="SELECT c FROM Contacto c ORDER BY c." + sorting;
-				objReturn.setData(super.count());
 			}
+			objReturn.setData(super.findAllSorting(query));
+			objReturn.setMensaje("Exito");
+			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
+			objReturn.setTotal(super.count());
+		} catch (Exception e) {
+			objReturn.setData("");
+			objReturn.setMensaje(e.getMessage());
+			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
+			objReturn.setTotal(0);
+		}
+		
+	}
+
+	public void getWhere(ObjectReturn objReturn) throws Exception {
+		Integer where = (Integer) objReturn.getData();
+		String query = "";
+		try {
+			query = "SELECT c FROM Contacto c WHERE c.afiliado.idAfiliado=" + where;
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

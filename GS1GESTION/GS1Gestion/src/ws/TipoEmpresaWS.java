@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import model.ObjectReturn;
 import model.TipoEmpresa;
+import services.DepartamentoServices;
 import services.TipoEmpresaServices;
 
 @Path("TipoEmpresa")
@@ -106,6 +107,48 @@ public class TipoEmpresaWS {
 			JsonArray objJsonArray = objelement.getAsJsonArray();
 			objJsonAux.addProperty("Result", "OK");
 			objJsonAux.add("Records", objJsonArray);
+			resultado = objJSON.toJson(objJsonAux);
+			return resultado;
+		} catch (Exception e) {
+			objJsonAux.addProperty("Result", "ERROR");
+			objJsonAux.addProperty("Message", e.getMessage());
+			resultado = objJSON.toJson(objJsonAux);
+			return resultado;
+		}
+
+	}
+	
+	
+	@Path("/Options")
+	@POST
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public String getOptions() {
+		ObjectReturn objReturn = new ObjectReturn();
+		String resultado = "";
+		Gson objJSON = new Gson();
+		JsonObject objJsonAux = new	JsonObject();
+		try {
+			TipoEmpresaServices objTipoEmpresaService = new TipoEmpresaServices();
+			objTipoEmpresaService.getall(objReturn);
+			if (!objReturn.getExito()) {
+				throw new Exception(objReturn.getMensaje());
+			}
+			resultado = objJSON.toJson(objReturn.getData());
+			JsonElement objelement= objJSON.toJsonTree(objReturn.getData());
+			JsonArray objJsonArray = objelement.getAsJsonArray();
+			JsonArray objJsonArrayAux = new JsonArray();
+			for(int i=0; i<objJsonArray.size();i++) {
+				JsonObject objJsonObject = objJsonArray.get(i).getAsJsonObject();
+				JsonObject objJsonObjectAux = new JsonObject();
+				int intId=objJsonObject.get("idTipoEmpresa").getAsInt();
+				String strDepartamento =objJsonObject.get("tipoEmpresa").getAsString();
+				objJsonObjectAux.addProperty("Value", intId);
+				objJsonObjectAux.addProperty("DisplayText", strDepartamento);
+				objJsonArrayAux.add(objJsonObjectAux);
+				
+			}
+			objJsonAux.addProperty("Result", "OK");
+			objJsonAux.add("Options", objJsonArrayAux);
 			resultado = objJSON.toJson(objJsonAux);
 			return resultado;
 		} catch (Exception e) {

@@ -22,5 +22,11 @@ public class DepartamentoServices {
 		objDepartamentoDAO.actualizarDepartamento(objReturn);
 		
 	}
+	
+	public void getone(ObjectReturn objReturn) throws Exception {
+		DepartamentoDAO objDepartamentoDAO = new DepartamentoDAO(Departamento.class);
+		objDepartamentoDAO.getone(objReturn);
+		
+	}
 
 }

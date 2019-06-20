@@ -60,11 +60,11 @@ public class EstandaresDAO extends JPAEntity<Estandares>{
 		try {
 			if (sorting ==null) {
 				query="SELECT e FROM Estandares e ORDER BY e.idEstandares ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			}else {
 				query="SELECT e FROM Estandares e ORDER BY e." + sorting;
-				objReturn.setData(super.count());
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.findAll().size());

@@ -21,11 +21,13 @@ public class TipoTelefonoWS {
 
 	GlobalServices objGlobalServices = new GlobalServices();
 
+	
+	//Añadiendo un comentario
 	@Path("/Crear")
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearTipoTelefono(@FormParam("tipoTelfono")String tipotelefono) {
+	public String CrearTipoTelefono(@FormParam("desTipoTelefono")String tipotelefono) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();

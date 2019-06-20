@@ -59,11 +59,10 @@ public class DetalleContactoDAO extends JPAEntity<DetalleContacto>{
 		try {
 			if (sorting ==null) {
 				query="SELECT d FROM DetalleContacto d ORDER BY d.idDetalleContacto ASC";
-				objReturn.setData(super.findAllSorting(query));
 			}else {
 				query="SELECT d FROM DetalleContacto d ORDER BY d." + sorting;
-				objReturn.setData(super.count());
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

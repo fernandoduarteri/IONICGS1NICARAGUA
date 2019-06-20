@@ -23,7 +23,7 @@ public class EstandaresWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String CrearEstandares(@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus") boolean estatus) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();
@@ -59,7 +59,7 @@ public class EstandaresWS {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")byte estatus) {
+	public String ActualizarEstandares(@FormParam("idEstandares")Integer idEstandares,@FormParam("descripcion")String descripcion,@FormParam("estandar")String estandar,@FormParam("estatus")boolean estatus) {
 		ObjectReturn objReturn = new ObjectReturn();
 		String resultado = "";
 		Gson objJSON = new GsonBuilder().create();

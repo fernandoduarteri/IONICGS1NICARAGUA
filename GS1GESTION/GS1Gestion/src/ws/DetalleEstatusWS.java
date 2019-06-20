@@ -47,7 +47,7 @@ public class DetalleEstatusWS {
 			objDetalleEstatus.setEstatus(estatus);
 			objDetalleEstatus.setComentario(comentario);
 			DetalleEstatusServices objDetalleEstatusService = new DetalleEstatusServices();
-			objReturn.setData(objAfiliaddo);
+			objReturn.setData(objDetalleEstatus);
 			objDetalleEstatusService.creardetalleestatus(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
@@ -88,7 +88,7 @@ public class DetalleEstatusWS {
 			objDetalleEstatus.setEstatus(estatus);
 			objDetalleEstatus.setComentario(comentario);
 			DetalleEstatusServices objDetalleEstatusService = new DetalleEstatusServices();
-			objReturn.setData(objAfiliaddo);
+			objReturn.setData(objDetalleEstatus);
 			objDetalleEstatusService.actualizardetalleestatus(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());

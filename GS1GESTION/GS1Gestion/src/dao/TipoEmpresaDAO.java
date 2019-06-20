@@ -53,11 +53,11 @@ public class TipoEmpresaDAO extends JPAEntity<TipoEmpresa>{
 		try {
 			if (sorting ==null) {
 				query="SELECT t FROM TipoEmpresa t ORDER BY t.idTipoEmpresa ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			}else {
 				query="SELECT t FROM TipoEmpresa t ORDER BY t." + sorting;
-				objReturn.setData(super.findAllSorting(query));
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

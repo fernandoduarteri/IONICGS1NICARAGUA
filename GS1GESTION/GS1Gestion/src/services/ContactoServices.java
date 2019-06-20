@@ -24,4 +24,10 @@ public class ContactoServices {
 		
 	}
 
+	public void getWhere(ObjectReturn objReturn) throws Exception{
+		ContactoDAO objContactoDAO = new ContactoDAO(Contacto.class);
+		objContactoDAO.getWhere(objReturn);
+		
+	}
+
 }

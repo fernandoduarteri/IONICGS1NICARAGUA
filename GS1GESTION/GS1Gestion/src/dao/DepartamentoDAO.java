@@ -50,11 +50,11 @@ public class DepartamentoDAO extends JPAEntity<Departamento> {
 		try {
 			if (sorting ==null) {
 				query="SELECT d FROM Departamento d ORDER BY d.idDepartamentos ASC";
-				objReturn.setData(super.findAllSorting(query));
+				
 			}else {
 				query="SELECT d FROM Departamento d ORDER BY d." + sorting;
-				objReturn.setData(super.count());
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());
@@ -81,5 +81,22 @@ public class DepartamentoDAO extends JPAEntity<Departamento> {
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
+	}
+
+	public void getone(ObjectReturn objReturn) {
+		Departamento objDepartamento = new Departamento();
+		try {
+			objDepartamento = (Departamento) objReturn.getData();
+			objReturn.setData(super.find(objDepartamento.getIdDepartamentos()));
+			objReturn.setMensaje("Exito");
+			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
+			objReturn.setTotal(1);
+		} catch (Exception e) {
+			objReturn.setData("");
+			objReturn.setMensaje(e.getMessage());
+			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
+			objReturn.setTotal(0);
+		}
+		
 	}
 }

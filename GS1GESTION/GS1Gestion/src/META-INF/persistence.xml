@@ -23,6 +23,7 @@
 		<class>model.AfiliadoEstandarePK</class>
 		<class>model.DetalleEstatus</class>
 		<class>model.ItemsTrazable</class>
+		<class>model.TipoIdentificacion</class>
 		<!-- <properties>
 			<property name="eclipselink.weaving.lazy" value="true" />
 			<property name="eclipselink.cache.type.default" value="NONE" />

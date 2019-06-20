@@ -61,11 +61,10 @@ public class AfiliadoDAO extends JPAEntity<Afiliado>{
 		try {
 			if (sorting ==null) {
 				query="SELECT a FROM Afiliado a ORDER BY a.idAfiliado ASC";
-				objReturn.setData(super.findAllSorting(query));
 			}else {
 				query="SELECT a FROM Afiliado a ORDER BY a." + sorting;
-				objReturn.setData(super.count());
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());

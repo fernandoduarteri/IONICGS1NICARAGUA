@@ -54,7 +54,7 @@ public class AfiladoWS {
 			objAfiliado.setMunicipio(objMunicipio);
 			objAfiliado.setTipoEmpresa(objTipoEmpresa);
 			AfiliadoServices objAfiliadoService = new AfiliadoServices();
-			objReturn.setData(objDepartamento);
+			objReturn.setData(objAfiliado);
 			objAfiliadoService.crearafiliado(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());
@@ -104,7 +104,7 @@ public class AfiladoWS {
 			objAfiliado.setMunicipio(objMunicipio);
 			objAfiliado.setTipoEmpresa(objTipoEmpresa);
 			AfiliadoServices objAfiliadoService = new AfiliadoServices();
-			objReturn.setData(objDepartamento);
+			objReturn.setData(objAfiliado);
 			objAfiliadoService.actualizarafiliado(objReturn);
 			if (!objReturn.getExito()) {
 				throw new Exception(objReturn.getMensaje());

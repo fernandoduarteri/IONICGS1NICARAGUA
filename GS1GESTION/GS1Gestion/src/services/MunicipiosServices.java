@@ -25,4 +25,10 @@ public class MunicipiosServices {
 		
 	}
 
+	public void getWhere(ObjectReturn objReturn) throws Exception{
+		MunicipioDAO objMunicipioDAO = new MunicipioDAO(Municipio.class);
+		objMunicipioDAO.getWhere(objReturn);
+		
+	}
+
 }

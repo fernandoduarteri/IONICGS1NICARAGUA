@@ -7,7 +7,7 @@ import model.Cargo;
 import model.ObjectReturn;
 import persist.JPAEntity;
 
-public class CargoDAO extends JPAEntity<Cargo>{
+public class CargoDAO extends JPAEntity<Cargo> {
 
 	public CargoDAO(Class<Cargo> entityClass) {
 		super(entityClass);
@@ -27,7 +27,7 @@ public class CargoDAO extends JPAEntity<Cargo>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
 	public void actualizarCargoo(ObjectReturn objReturn) throws Exception {
@@ -44,20 +44,19 @@ public class CargoDAO extends JPAEntity<Cargo>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
 	public void getall(ObjectReturn objReturn) throws Exception {
 		String sorting = (String) objReturn.getData();
-		String query="";
+		String query = "";
 		try {
-			if (sorting ==null) {
-				query="SELECT c FROM Cargo c ORDER BY c.idCargos ASC";
-				objReturn.setData(super.findAllSorting(query));
-			}else {
-				query="SELECT c FROM Cargo c ORDER BY c." + sorting;
-				objReturn.setData(super.findAllSorting(query));
+			if (sorting == null) {
+				query = "SELECT c FROM Cargo c ORDER BY c.idCargos ASC";
+			} else {
+				query = "SELECT c FROM Cargo c ORDER BY c." + sorting;
 			}
+			objReturn.setData(super.findAllSorting(query));
 			objReturn.setMensaje("Exito");
 			objReturn.setExito(Constantes.FLAG_EXITO_EXITO);
 			objReturn.setTotal(super.count());
@@ -67,7 +66,7 @@ public class CargoDAO extends JPAEntity<Cargo>{
 			objReturn.setExito(Constantes.FLAG_EXITO_FALLA);
 			objReturn.setTotal(0);
 		}
-		
+
 	}
 
 	@Override
